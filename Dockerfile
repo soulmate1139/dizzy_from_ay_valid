@@ -1,8 +1,9 @@
-# Use the official Nginx image as the base image
-FROM nginx:alpine
+FROM ubuntu:latest
 
-# Copy the HTML file into the Nginx default html directory
-COPY index.html /usr/share/nginx/html/
+RUN apt-get update
+RUN apt-get -y install nginx
 
-# Expose port 80 to allow external access
+
+COPY index.html /var/www/html/index.html
 EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
