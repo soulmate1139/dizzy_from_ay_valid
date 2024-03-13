@@ -1,9 +1,12 @@
-FROM ubuntu:latest
+FROM nginx:alpine
 
-RUN apt-get update
-RUN apt-get -y install nginx
+WORKDIR /usr/share/nginx/html
 
+# Copy all top-level HTML, CSS, and JS files
+COPY *.html *.css *.js .
 
-COPY index.html /var/www/html/index.html
+# Copy all files and subfolders within any nested directories
+COPY **/* /usr/share/nginx/html/
+
 EXPOSE 80
-CMD ["nginx","-g","daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
